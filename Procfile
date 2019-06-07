@@ -1,0 +1,1 @@
+web: gunicorn intents_project.wsgi --log-file -
