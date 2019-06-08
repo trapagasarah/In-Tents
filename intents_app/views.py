@@ -17,4 +17,3 @@ class GearViewSet(viewsets.ModelViewSet):
 class ChecklistItemViewSet(viewsets.ModelViewSet):
     queryset = ChecklistItem.objects.all()
     serializer_class = ChecklistItemSerializer
-

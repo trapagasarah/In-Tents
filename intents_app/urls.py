@@ -3,9 +3,9 @@ from rest_framework import routers
                                                          
 router = routers.SimpleRouter()
 
-router.register('campsite', CampsiteViewSet)
-router.register('trip', TripViewSet)
+router.register('campsites', CampsiteViewSet)
+router.register('trips', TripViewSet)
 router.register('gear', GearViewSet)
-router.register('checklist', ChecklistItemViewSet)
+router.register('checklists', ChecklistItemViewSet)
  
 urlpatterns = router.urls

@@ -23,5 +23,3 @@ urlpatterns = [
     path('', include('intents_app.urls')),
     path('api-auth/', auth_views.obtain_auth_token),
 ] 
-
-
