@@ -10,20 +10,20 @@ class CampsiteSerializer(serializers.HyperlinkedModelSerializer):
                                                          
 class TripSerializer(serializers.HyperlinkedModelSerializer):
     campsite = serializers.PrimaryKeyRelatedField(
-        queryset= Decades.objects.all()
+        queryset= Campsite.objects.all()
     )
     
     class Meta:
         model = Trip
-        fields = ('start_date', 'end_date', 'campsite', 'campers', 'item_checklist')
+        fields = ('start_date', 'end_date', 'campsite', 'campers', 'checklist')
 
-class GearSerializer(serializer.HyperlinkedModelSerializer):
+class GearSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Gear
         fields = ('name', 'description', 'quantity')
 
-class ChecklistItemSerializer(serializer.HyperlinkedModelSerializer):
+class ChecklistItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ChecklistItem
