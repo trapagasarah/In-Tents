@@ -21,18 +21,18 @@ class Trip(models.Model):
         return self.start_date
 
 class Gear(models.Model):
-    name = CharField(max_length=100)
-    description = CharField(max_length=300)
-    quantity = IntegerField()
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=300)
+    quantity = models.IntegerField()
 
     def __str__(self):
         return self.name
 
 class ChecklistItem(models.Model):
-    camping_item = CharField(max_length=100)
-    quantity = IntegerField()
+    camping_item = models.CharField(max_length=100)
+    quantity = models.IntegerField()
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='checklist')
-    is_checked = BooleanField()
+    is_checked = models.BooleanField()
 
     def __str__(self):
         return self.camping_item
