@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4u$nyxphop$@5rm4c6%_f#q)j6ut4%t3nf!6%kn$l_yc)8r^r0'
+SECRET_KEY = 'vz^hat4=rgrbbpe44ryegoqv%58@$ga!9o!@sb^-=v6s!_^$-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.authtoken',
     'django_extensions',
     'intents_app'
 ]
@@ -88,6 +87,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -126,16 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-REST_FRAMEWORK = {    
-    'DEFAULT_PERMISSION_CLASSES': [    
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'    
-    ], 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),    
-} 
 
-
-# Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
