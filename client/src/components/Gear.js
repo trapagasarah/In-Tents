@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import gearClient from '../gearClient';
 
@@ -45,7 +44,8 @@ class Gear extends Component {
                 <ul>
                     {this.state.gear.map(singleGear => (
                         <li key={singleGear.id}>
-                            {singleGear.name}
+                            {singleGear.name}: {singleGear.description} 
+                            Quantity: {singleGear.quantity}
                             <button onClick={() => this.editGearItem(singleGear)}>Edit</button>
                             <button onClick={() => this.deleteGearItem(singleGear.id)}>Delete</button>
                         </li>

@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
-import {getAllGear} from './gearClient';
 import Gear from './components/Gear';
+import Campsites from './components/Campsites'
 
 class App extends Component {
   
@@ -16,11 +16,9 @@ class App extends Component {
                       
                   </div>
 
-                  <Gear />
-
                   <Switch>
-                    <Route />
-                    <Route />
+                    <Route path="/gear" component={Gear}/>
+                    <Route path="/campsites" component={Campsites} />
                   </Switch>
               </div>
           </Router>

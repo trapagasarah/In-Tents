@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    # 'rest_framework.authtoken',
     'django_extensions',
     'intents_app'
 ]
@@ -140,3 +141,12 @@ REACT_APP_DIR = os.path.join(BASE_DIR, 'client')
 STATICFILES_DIRS = [
     os.path.join(REACT_APP_DIR, 'build', 'static')
 ]
+
+REST_FRAMEWORK = {    
+    'DEFAULT_PERMISSION_CLASSES': [    
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'    
+    ]
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ),    
+} 

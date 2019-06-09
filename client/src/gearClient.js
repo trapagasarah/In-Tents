@@ -6,6 +6,8 @@ const gearClient = {
         return response.data
     },
     create: async (gear) => {
+        console.log(gear)
+        
         let response = await axios.post('/api/v1/gear/', gear)
         return response.data
     },
