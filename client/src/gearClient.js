@@ -19,9 +19,4 @@ const gearClient = {
     }
 }
 
-
-
-
-
-
 export default gearClient
