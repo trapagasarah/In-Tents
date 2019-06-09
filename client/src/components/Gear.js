@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import gearClient from '../util';
+import gearClient from '../gearClient';
 
 class Gear extends Component {
     state = {

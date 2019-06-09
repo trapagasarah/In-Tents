@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
-import {getAllGear} from './util';
+import {getAllGear} from './gearClient';
 import Gear from './components/Gear';
 
 class App extends Component {
