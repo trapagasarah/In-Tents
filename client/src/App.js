@@ -1,18 +1,11 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
 import './App.css';
-import {getAllGear} from './util'
+import {getAllGear} from './util';
+import Gear from './components/Gear';
 
 class App extends Component {
-  state = {
-    gear: [],
-
-  }
-
-  async componentDidMount(){
-    let gear = await getAllGear()
-    this.setState({gear: gear})
-  }
+  
   render() {
       return (
           <Router>
@@ -22,6 +15,8 @@ class App extends Component {
                       <h1>In-Tents</h1>
                       
                   </div>
+
+                  <Gear />
 
                   <Switch>
                     <Route />

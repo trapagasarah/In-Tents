@@ -21,7 +21,7 @@ class GearSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Gear
-        fields = ('name', 'description', 'quantity')
+        fields = ('id', 'name', 'description', 'quantity')
 
 class ChecklistItemSerializer(serializers.HyperlinkedModelSerializer):
 
