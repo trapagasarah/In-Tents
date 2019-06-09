@@ -20,9 +20,22 @@ class Gear extends Component {
         this.setState({ popupActive: true, editGearItem: singleGear })
     }
 
-    saveGearItem = (event) => {
+    saveGearItem = async (event, gearItem) => {
         event.preventDefault();
-        this.setState({ popupActive: false })
+        if(gearItem.id === ''){
+            await gearClient.create(gearItem)
+        } else {
+            await gearClient.update(gearItem)
+        }
+        let gear =  await gearClient.getAll()
+        this.setState({ popupActive: false, gear: gear })
+    }
+
+    deleteGearItem =  async (gearId) => {
+        await gearClient.delete(gearId)
+        let gear =  await gearClient.getAll()
+        this.setState({gear: gear })
+        
     }
 
     render() {
@@ -34,9 +47,11 @@ class Gear extends Component {
                         <li key={singleGear.id}>
                             {singleGear.name}
                             <button onClick={() => this.editGearItem(singleGear)}>Edit</button>
+                            <button onClick={() => this.deleteGearItem(singleGear.id)}>Delete</button>
                         </li>
                     ))}
                 </ul>
+                <button onClick={() => this.editGearItem({id:'', name: '', description: '', quantity: 1})}>Add Gear</button>
                 {this.state.popupActive && <EditGearComponent onSave={this.saveGearItem} gearItem={this.state.editGearItem} />}
             </div>
         )
@@ -63,7 +78,7 @@ class EditGearComponent extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.props.onSave}>
+                <form onSubmit={(event) => this.props.onSave(event, this.state.gearItem)}>
                     <input type="hidden" name="id" value={this.state.gearItem.id} onChange={this.onGearItemChange}/>
                     <label>Name</label>
                     <input type="text" name="name" value={this.state.gearItem.name} onChange={this.onGearItemChange} />
