@@ -5,7 +5,7 @@ class CampsiteSerializer(serializers.HyperlinkedModelSerializer):
    
     class Meta:
         model = Campsite
-        fields = ('name', 'location', 'description', 'campsite_type', 'campsiteAPI_id')
+        fields = ('id', 'name', 'location', 'description', 'campsite_type', 'campsiteAPI_id')
                                                          
                                                          
 class TripSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,7 +15,7 @@ class TripSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Trip
-        fields = ('start_date', 'end_date', 'campsite', 'campers', 'checklist')
+        fields = ('id','start_date', 'end_date', 'campsite', 'campers', 'checklist')
 
 class GearSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -27,4 +27,4 @@ class ChecklistItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ChecklistItem
-        fields = ('camping_item', 'quantity')
+        fields = ('id', 'camping_item', 'quantity')
