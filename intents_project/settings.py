@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     'django_extensions',
     'intents_app'
 ]
@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'intents_database',
         'USER': 'intentsuser',
         'PASSWORD': 'password',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
     }
 }
 
@@ -145,8 +145,8 @@ STATICFILES_DIRS = [
 REST_FRAMEWORK = {    
     'DEFAULT_PERMISSION_CLASSES': [    
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'    
-    ]
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
     #     'rest_framework.authentication.TokenAuthentication',
-    # ),    
+    # ],    
 } 

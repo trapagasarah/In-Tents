@@ -10,9 +10,11 @@ const campsiteClient = {
         return response.data
     },
     create: async (campsite) => {
+        console.log(campsite)
         let response = await axios.post('/api/v1/campsites/', campsite)
         return response.data
     },
+    
     update: async (campsite) => {
         let response = await axios.patch(`/api/v1/campsites/${campsite.id}/`, campsite)
         return response.data

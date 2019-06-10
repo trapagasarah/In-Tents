@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import gearClient from '../gearClient';
+import gearClient from '../clients/gearClient';
 
 class Gear extends Component {
     state = {

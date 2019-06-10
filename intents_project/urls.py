@@ -21,7 +21,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api-auth/', auth_views.obtain_auth_token),
+    path('api-auth/', auth_views.obtain_auth_token),
     path('api/v1/', include('intents_app.urls')),
     path('', views.FrontendAppView.as_view()), 
 ] 
