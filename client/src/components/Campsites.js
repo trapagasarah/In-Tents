@@ -9,6 +9,7 @@ class Campsites extends Component {
         popupActive: false,
         editCampsite: {}
     }
+    
     async componentDidMount() {
         let campsites = await campsiteClient.getAll()
         this.setState({ campsites: campsites })

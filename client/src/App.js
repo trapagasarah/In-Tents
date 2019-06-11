@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import './App.css';
 import Gear from './components/Gear';
-import Campsites from './components/Campsites'
+import Campsites from './components/Campsites';
+import Trips from './components/Trips';
 
 class App extends Component {
 
@@ -18,6 +19,7 @@ class App extends Component {
                     <Switch>
                         <Route path="/gear" component={Gear} />
                         <Route path="/campsites" component={Campsites} />
+                        <Route path="/trips" component={Trips} />
                     </Switch>
                 </div>
             </Router>

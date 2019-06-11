@@ -12,13 +12,14 @@ class Campsite(models.Model):
 
 
 class Trip(models.Model):
+    name = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
     campers = models.IntegerField()
     campsite = models.ForeignKey(Campsite, on_delete=models.CASCADE, related_name='trip')
 
     def __str__(self):
-        return self.start_date
+        return f"{self.name}"
 
 class Gear(models.Model):
     name = models.CharField(max_length=100)

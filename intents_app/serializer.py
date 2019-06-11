@@ -15,7 +15,7 @@ class TripSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Trip
-        fields = ('id','start_date', 'end_date', 'campsite', 'campers', 'checklist')
+        fields = ('id', 'name', 'start_date', 'end_date', 'campsite', 'campers', 'checklist')
 
 class GearSerializer(serializers.HyperlinkedModelSerializer):
 
