@@ -6,6 +6,6 @@ router = routers.SimpleRouter()
 router.register('campsites', CampsiteViewSet)
 router.register('trips', TripViewSet)
 router.register('gear', GearViewSet)
-router.register('checklists', ChecklistItemViewSet)
+router.register('checklistitems', ChecklistItemViewSet)
  
 urlpatterns = router.urls

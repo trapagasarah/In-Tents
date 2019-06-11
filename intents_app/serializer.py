@@ -11,7 +11,7 @@ class ChecklistItemSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ChecklistItem
-        fields = ('id', 'camping_item', 'quantity')
+        fields = ('id', 'camping_item', 'quantity', 'is_checked')
                                                          
                                                          
 class TripSerializer(serializers.HyperlinkedModelSerializer):
