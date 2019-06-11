@@ -7,6 +7,7 @@ const tripClient = {
     },
     get: async (id) => {
         let response = await axios.get(`/api/v1/trips/${id}/`)
+        console.log(response)
         return response.data
     },
     create: async (trip) => {
