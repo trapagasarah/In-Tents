@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import tripClient from '../clients/tripClient';
 import Gear from './Gear';
 import checklistItemClient from '../clients/checklistItemClient'
+import campsiteClient from '../clients/campsiteClient';
 
 
 class TripDetails extends Component {
@@ -57,7 +58,7 @@ class TripDetails extends Component {
                     <button onClick={() => this.editTrip(this.state.trip)}>Edit</button>
                     <button onClick={() => this.deleteTrip(this.state.trip.id)}>Delete</button>
                     {this.state.popupActive && <EditTripComponent onSave={this.saveTrip} trip={this.state.editTrip} />}
-                    <Checklist value={this.state.trip.checklist} />
+                    <Checklist value={this.state.trip.checklist} tripId={this.state.trip.id}/>
                     <Gear />
                 </div>
                 }
@@ -106,11 +107,29 @@ class EditTripComponent extends Component {
 class Checklist extends Component {
     constructor(props) {
         super(props);
-        this.state = { checklist: props.value }
+        this.state = {
+            checklist: props.value,
+            popupActive: false,
+            newChecklistItem: {camping_item: '', quantity: 1, is_checked: false, trip: props.tripId}
+        }
+    }
+    addChecklistItem = async (event) => {
+        event.preventDefault()
+        console.log(this.state.newChecklistItem)
+        let newItem = await checklistItemClient.create(this.state.newChecklistItem)
+        this.setState(prevState => ({checklist: [...prevState.checklist, newItem], popupActive: false}))
+        
     }
 
-    editChecklist = (checklistItem) => {
-        this.setState({ popupActive: true, editChecklist: checklistItem })
+    onNewChecklistItemChange = (event) => {
+        let name = event.target.name
+        let value = event.target.value
+        this.setState(prevState => ({
+            newChecklistItem: {
+                ...prevState.newChecklistItem,
+                [name]: value
+            }
+        }))
     }
 
     render() {
@@ -119,9 +138,16 @@ class Checklist extends Component {
                 <h1>Checklist</h1>
                 <ul>
                     {this.state.checklist.map(checklistItem => (
-                         <CheckListItem key={checklistItem.id} item={checklistItem} />
+                        <CheckListItem key={checklistItem.id} item={checklistItem} />
                     ))}
                 </ul>
+                <button onClick={() => this.setState({popupActive: true})}>Add Checklist Item</button>
+                {this.state.popupActive &&
+                        <form onSubmit={this.addChecklistItem}>
+                            <input type="text" name="camping_item" value={this.state.newChecklistItem.camping_item} onChange={this.onNewChecklistItemChange} />
+                            <button>Save</button>
+                        </form>
+                    }
             </div>
         )
     }
@@ -130,8 +156,11 @@ class Checklist extends Component {
 class CheckListItem extends Component {
     constructor(props) {
         super(props)
-        console.log(props.item)
-        this.state = { checklistItem: props.item }
+        this.state = {
+            checklistItem: props.item,
+            popupActive: false,
+            editChecklist: {}
+        }
     }
 
     async onChecked(checklistItem) {
@@ -144,19 +173,58 @@ class CheckListItem extends Component {
         await checklistItemClient.update(toggledChecklistItem)
     }
 
+    editChecklist = (checklistItem) => {
+        this.setState({ popupActive: true, checklistItem: checklistItem })
+    }
 
+    saveChecklist = async (event) => {
+        event.preventDefault();
+        let checklistItem = this.state.checklistItem
+        await checklistItemClient.update(checklistItem)
+        this.setState({ checklistItem: checklistItem, popupActive: false })
+    }
+
+    deleteCampsite = async (checklistId) => {
+        await checklistItemClient.delete(checklistId)
+        let checklist = await checklistItemClient.getAll()
+        this.setState({ checklistItem: checklist })
+    }
+
+    onChecklistItemChange = (event) => {
+        event.preventDefault()
+        let name = event.target.name
+        let value = event.target.value
+        this.setState(prevState => ({
+            checklistItem: {
+                ...prevState.checklistItem,
+                [name]: value
+            }
+        }))
+    }
     render() {
-        return (<li>
-            <input
-                type="checkbox"
-                name="checklistItem"
-                checked={this.state.checklistItem.is_checked}
-                onChange={() => this.onChecked(this.state.checklistItem)}
-            />
-            {this.state.checklistItem.camping_item}
-            <button>Edit</button>
-        </li>)
+        return (
+            <div>
+                <li>
+                    <input
+                        type="checkbox"
+                        name="checklistItem"
+                        checked={this.state.checklistItem.is_checked}
+                        onChange={() => this.onChecked(this.state.checklistItem)}
+                    />
+                    {this.state.checklistItem.camping_item}
+                    <button onClick={() => this.editChecklist(this.state.checklistItem)}>Edit</button>
+                    {this.state.popupActive &&
+                        <form onSubmit={this.saveChecklist}>
+                            <input type="hidden" name="id" value={this.state.checklistItem.id} />
+                            <input type="text" name="camping_item" value={this.state.checklistItem.camping_item} onChange={this.onChecklistItemChange} />
+                            <button>Save</button>
+                        </form>
+                    }
+                </li>
+            </div >
+        )
     }
 }
+
 
 export default TripDetails

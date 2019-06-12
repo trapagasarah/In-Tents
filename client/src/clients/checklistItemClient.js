@@ -6,6 +6,7 @@ const checklistItemClient = {
         return response.data
     },
     create: async (checklistItem) => {
+        console.log(checklistItem)
         let response = await axios.post('/api/v1/checklistitems/', checklistItem)
         return response.data
     },

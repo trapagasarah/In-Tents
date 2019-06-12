@@ -7,11 +7,11 @@ class CampsiteSerializer(serializers.HyperlinkedModelSerializer):
         model = Campsite
         fields = ('id', 'name', 'location', 'description', 'campsite_type', 'campsiteAPI_id')
 
-class ChecklistItemSerializer(serializers.HyperlinkedModelSerializer):
-
+class ChecklistItemSerializer(serializers.ModelSerializer):
+ 
     class Meta:
         model = ChecklistItem
-        fields = ('id', 'camping_item', 'quantity', 'is_checked')
+        fields = ('id', 'camping_item', 'quantity', 'is_checked', 'trip')
                                                          
                                                          
 class TripSerializer(serializers.HyperlinkedModelSerializer):

@@ -5,6 +5,7 @@ import Gear from './components/Gear';
 import Campsites from './components/Campsites';
 import Trips from './components/Trips';
 import TripDetails from "./components/TripDetails";
+import TipsAndTricks from "./components/TipsAndTricks";
 
 class App extends Component {
 
@@ -21,7 +22,9 @@ class App extends Component {
                         <Route exact path="/gear" component={Gear} />
                         <Route exact path="/campsites" component={Campsites} />
                         <Route exact path="/trips" component={Trips} />
+                        <Route exact path="/tipsandtricks" component={TipsAndTricks} />
                         <Route path="/trips/:id" component={TripDetails}/>
+                        
 
                     </Switch>
                 </div>
