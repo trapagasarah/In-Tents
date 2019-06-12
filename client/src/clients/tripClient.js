@@ -20,6 +20,7 @@ const tripClient = {
     },
     delete: async (id) => {
         let response = await axios.delete(`/api/v1/trips/${id}/`)
+        console.log(response)
         return response.data
     }
 }

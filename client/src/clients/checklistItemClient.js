@@ -15,7 +15,7 @@ const checklistItemClient = {
         return response.data
     },
     delete: async (id) => {
-        let response = await axios.delete(`api/v1/checklistitems/${id}/`)
+        let response = await axios.delete(`/api/v1/checklistitems/${id}/`)
         return response.data
     }
 }

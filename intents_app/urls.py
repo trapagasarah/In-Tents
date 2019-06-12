@@ -7,5 +7,9 @@ router.register('campsites', CampsiteViewSet)
 router.register('trips', TripViewSet)
 router.register('gear', GearViewSet)
 router.register('checklistitems', ChecklistItemViewSet)
- 
+# router.register('places', PlacesViewSet)
+
 urlpatterns = router.urls
+
+
+

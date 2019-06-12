@@ -46,7 +46,7 @@ class Campsites extends Component {
                 <ul>
                     {this.state.campsites.map(singleCampsite => (
                         <li key={singleCampsite.id}>
-                            {singleCampsite.name}
+                            <Link to={`/campsites/${singleCampsite.id}`}>{singleCampsite.name}</Link>
                             <button onClick={() => this.editCampsite(singleCampsite)}>Edit</button>
                             <button onClick={() => this.deleteCampsite(singleCampsite.id)}>Delete</button>
                         </li>

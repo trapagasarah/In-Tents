@@ -27,3 +27,9 @@ class GearSerializer(serializers.HyperlinkedModelSerializer):
         model = Gear
         fields = ('id', 'name', 'description', 'quantity')
 
+class PlacesSeriailzer(serializers.Serializer):
+    id = serializers.CharField(max_length=100)
+
+    def list(self,  validated_data):
+        return {id: "test"}
+

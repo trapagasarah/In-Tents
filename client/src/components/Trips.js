@@ -32,6 +32,7 @@ class Trips extends Component {
                         </li>
                     ))}
                 </ul>
+                <Link to={`/newtrip/`}> <button>Plan A Trip</button> </Link>
             </div>
         )
     }
