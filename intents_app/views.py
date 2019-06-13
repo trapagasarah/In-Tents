@@ -2,8 +2,10 @@ from rest_framework import viewsets
 from .serializer import CampsiteSerializer, TripSerializer, GearSerializer, ChecklistItemSerializer
 from .models import Campsite, Trip, Gear, ChecklistItem
 from django.shortcuts import render
-import requests
-from django.http import JsonResponse
+import requests 
+from django.http import JsonResponse,  HttpResponse
+from django.views import View
+
                                                  
 class CampsiteViewSet(viewsets.ModelViewSet):
     queryset = Campsite.objects.all()
@@ -21,17 +23,12 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
     queryset = ChecklistItem.objects.all()
     serializer_class = ChecklistItemSerializer
 
-# class PlacesViewSet(viewsets.ViewSet):
-#     serializer_class = 
-#     def list(self, request):
-#         data  =  {
-#             test: "test"
-#         } 
-#         return JsonResponse(data, safe=false)
 
-
-
-# def home(request):
+class PlaceView(View):
+    def get(self, request, *args, **kwargs):
+        response = requests.get('https://api.github.com/events')
+        return JsonResponse(response.json(), safe=False)
+        
 #     response = requests.get('http://freegeoip.net/json/')
 #     geodata = response.json()
 #     return render(request, 'core/home.html', {

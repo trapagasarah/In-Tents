@@ -1,6 +1,7 @@
 from .models import Campsite, Trip, Gear, ChecklistItem                                                          
 from rest_framework import serializers
-                                                         
+
+                                                        
 class CampsiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campsite
@@ -25,9 +26,4 @@ class GearSerializer(serializers.ModelSerializer):
         model = Gear
         fields = ('id', 'name', 'description', 'quantity')
 
-class PlacesSeriailzer(serializers.Serializer):
-    id = serializers.CharField(max_length=100)
-
-    def list(self,  validated_data):
-        return {id: "test"}
 
