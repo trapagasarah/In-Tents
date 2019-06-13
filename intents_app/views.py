@@ -26,6 +26,7 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
 
 class PlaceView(View):
     def get(self, request, *args, **kwargs):
+        print(request.GET['test']) #exaple of how to get a query param
         response = requests.get('https://api.github.com/events')
         return JsonResponse(response.json(), safe=False)
         
