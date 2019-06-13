@@ -3,22 +3,25 @@ import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import tripClient from '../clients/tripClient';
 import Gear from './Gear';
-import checklistItemClient from '../clients/checklistItemClient'
-
-
+import checklistItemClient from '../clients/checklistItemClient';
+import campsiteClient from '../clients/campsiteClient';
 
 class TripDetails extends Component {
     state = {
         trip: {},
         popupActive: false,
         editTrip: {},
-        redirect: false
+        redirect: false,
+        campsite: null
     }
 
     async componentDidMount() {
         let tripId = this.props.match.params.id
         let trip = await tripClient.get(tripId)
-        this.setState({ trip: trip })
+        let  campsite = await campsiteClient.get(trip.campsite)
+
+        this.setState({ trip: trip, campsite: campsite })
+
     }
 
     editTrip = (trip) => {
@@ -27,16 +30,15 @@ class TripDetails extends Component {
 
     saveTrip = async (event, trip) => {
         event.preventDefault();
-        let tripWithoutCampsiteAndChecklist = {
+        let tripWithoutChecklist = {
             ...trip,
-            campsite: undefined,
             checklist: undefined
         }
-        console.log(tripWithoutCampsiteAndChecklist)
+        console.log(tripWithoutChecklist)
         if (trip.id === '') {
-            await tripClient.create(tripWithoutCampsiteAndChecklist)
+            await tripClient.create(tripWithoutChecklist)
         } else {
-            await tripClient.update(tripWithoutCampsiteAndChecklist)
+            await tripClient.update(tripWithoutChecklist)
         }
         let tripId = this.props.match.params.id
         let updatedTrip = await tripClient.get(tripId)
@@ -55,7 +57,7 @@ class TripDetails extends Component {
                 <h1>My Trip</h1>
                 {this.state.trip.id && <div>
                     <h3>Name: {this.state.trip.name}</h3>
-                    <h3>Location: {this.state.trip.campsite.name}</h3>
+                    <h3>Location: {this.state.campsite.name}</h3>
                     <h3>Number of Campers: {this.state.trip.campers}</h3>
                     <h3>Start-Date: {this.state.trip.start_date}</h3>
                     <h3>End-Date: {this.state.trip.end_date}</h3>

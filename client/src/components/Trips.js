@@ -24,7 +24,7 @@ class Trips extends Component {
         return(
             <div>
                 <h1>My Trips</h1>
-                <ul>
+                <ul>        
                     {this.state.trips.map(trip  => (
                         <li key={trip.id}>
                             <Link to={`/trips/${trip.id}`}>{trip.name}</Link>

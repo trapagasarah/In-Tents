@@ -1,8 +1,7 @@
 from .models import Campsite, Trip, Gear, ChecklistItem                                                          
 from rest_framework import serializers
                                                          
-class CampsiteSerializer(serializers.HyperlinkedModelSerializer):
-   
+class CampsiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campsite
         fields = ('id', 'name', 'location', 'description', 'campsite_type', 'campsiteAPI_id')
@@ -14,14 +13,13 @@ class ChecklistItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'camping_item', 'quantity', 'is_checked', 'trip')
                                                          
                                                          
-class TripSerializer(serializers.HyperlinkedModelSerializer):
-    campsite = CampsiteSerializer()
-    checklist = ChecklistItemSerializer(many=True)
+class TripSerializer(serializers.ModelSerializer):
+    checklist = ChecklistItemSerializer(many=True, read_only=True)
     class Meta:
         model = Trip
         fields = ('id', 'name', 'start_date', 'end_date', 'campsite', 'campers', 'checklist')
 
-class GearSerializer(serializers.HyperlinkedModelSerializer):
+class GearSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Gear
