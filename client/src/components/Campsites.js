@@ -99,12 +99,8 @@ class EditCampsiteComponent extends Component {
                     <input type="text" name="name" value={this.state.campsite.name} onChange={this.onCampsiteChange} />
                     <label>Location</label>
                     <input type="text" name="location" value={this.state.campsite.location} onChange={this.onCampsiteChange} />
-                    <label>Type</label>
-                    <input type="text" name="campsite_type" value={this.state.campsite.campsite_type} onChange={this.onCampsiteChange} />
                     <label>Description</label>
                     <input type="text" name="description" value={this.state.campsite.description} onChange={this.onCampsiteChange} />
-                    <label>Campsite API Id</label>
-                    <input type="text" name="campsiteAPI_id" value={this.state.campsite.campsiteAPI_id} onChange={this.onCampsiteChange} />
                     <button>Save</button>
                 </form>
                 <MapViewer onSelect={this.onPlaceSelect} />

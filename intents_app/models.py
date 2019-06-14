@@ -4,8 +4,6 @@ class Campsite(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
-    campsite_type = models.CharField(max_length=100)
-    campsiteAPI_id = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.name} - {self.location} - {self.campsite_type}"

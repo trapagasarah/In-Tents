@@ -6,7 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 class CampsiteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campsite
-        fields = ('id', 'name', 'location', 'description', 'campsite_type', 'campsiteAPI_id')
+        fields = ('id', 'name', 'location', 'description')
 
 class ChecklistItemSerializer(serializers.ModelSerializer):
  
