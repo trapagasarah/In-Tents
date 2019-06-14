@@ -5,8 +5,11 @@ from django.shortcuts import render
 import requests 
 from django.http import JsonResponse,  HttpResponse
 from django.views import View
+from decouple import config
 
-                                                 
+
+apiKey = config("IN_TENTS_GOOGLE_SECRET_KEY")
+                                              
 class CampsiteViewSet(viewsets.ModelViewSet):
     queryset = Campsite.objects.all()
     serializer_class = CampsiteSerializer
@@ -23,16 +26,12 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
     queryset = ChecklistItem.objects.all()
     serializer_class = ChecklistItemSerializer
 
-
 class PlaceView(View):
     def get(self, request, *args, **kwargs):
-        print(request.GET['test']) #exaple of how to get a query param
-        response = requests.get('https://api.github.com/events')
-        return JsonResponse(response.json(), safe=False)
+        print(f"Key: {apiKey}")
+        lat = request.GET['lat']
+        lng = request.GET['lng']
+        response = requests.get(f"https://maps.googleapis.com/maps/api/place/textsearch/json?key={apiKey}&type=campground&location={lat},{lng}&radiuis=50000")
+        json = response.json()
+        return JsonResponse(json, safe=False)
         
-#     response = requests.get('http://freegeoip.net/json/')
-#     geodata = response.json()
-#     return render(request, 'core/home.html', {
-#         'ip': geodata['ip'],
-#         'country': geodata['country_name']
-#     })

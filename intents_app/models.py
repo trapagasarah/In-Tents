@@ -37,3 +37,4 @@ class ChecklistItem(models.Model):
 
     def __str__(self):
         return self.camping_item
+

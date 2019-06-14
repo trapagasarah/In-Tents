@@ -58,7 +58,7 @@ class NewTrip extends Component {
                             <label>Name:</label>
                             <input type="text" name="name" value={this.state.trip.name} onChange={this.onTripChange} />
                             <label>Location:</label>
-                            <select name="campsite" onChange={this.onTripChange} value={this.state.selectedCampsite}>
+                            <select name="campsite" onChange={this.onTripChange} value={this.state.trip.campsite}>
                                 {this.state.campsites.map(campsite => (
                                     <option key={campsite.id} value={campsite.id} >{campsite.name}</option>
                                 ))}

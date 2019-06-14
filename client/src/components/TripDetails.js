@@ -6,6 +6,19 @@ import Gear from './Gear';
 import checklistItemClient from '../clients/checklistItemClient';
 import campsiteClient from '../clients/campsiteClient';
 
+const MyTripWrapper = styled.div`
+    display: grid;
+    
+    .my-trip-details{
+        grid-template-rows:    repeat(4, 100px);
+        grid-template-columns: repeat(3, 1fr);
+        background-color: purple;
+    }
+
+`
+
+
+
 class TripDetails extends Component {
     state = {
         trip: {},
@@ -18,7 +31,7 @@ class TripDetails extends Component {
     async componentDidMount() {
         let tripId = this.props.match.params.id
         let trip = await tripClient.get(tripId)
-        let  campsite = await campsiteClient.get(trip.campsite)
+        let campsite = await campsiteClient.get(trip.campsite)
 
         this.setState({ trip: trip, campsite: campsite })
 
@@ -47,28 +60,30 @@ class TripDetails extends Component {
 
     deleteTrip = async (tripId) => {
         await tripClient.delete(tripId)
-        this.setState({redirect:true})
+        this.setState({ redirect: true })
     }
 
     render() {
         return (
-            <div>
+            <MyTripWrapper>
                 {this.state.redirect && <Redirect to='/trips' />}
                 <h1>My Trip</h1>
                 {this.state.trip.id && <div>
-                    <h3>Name: {this.state.trip.name}</h3>
-                    <h3>Location: {this.state.campsite.name}</h3>
-                    <h3>Number of Campers: {this.state.trip.campers}</h3>
-                    <h3>Start-Date: {this.state.trip.start_date}</h3>
-                    <h3>End-Date: {this.state.trip.end_date}</h3>
-                    <button onClick={() => this.editTrip(this.state.trip)}>Edit</button>
-                    <button onClick={() => this.deleteTrip(this.state.trip.id)}>Delete</button>
-                    {this.state.popupActive && <EditTripComponent onSave={this.saveTrip} trip={this.state.editTrip} />}
+                    <div class="my-trip-details">
+                        <h3>Name: {this.state.trip.name}</h3>
+                        <h3>Location: {this.state.campsite.name}</h3>
+                        <h3>Number of Campers: {this.state.trip.campers}</h3>
+                        <h3>Start-Date: {this.state.trip.start_date}</h3>
+                        <h3>End-Date: {this.state.trip.end_date}</h3>
+                        <button onClick={() => this.editTrip(this.state.trip)}>Edit</button>
+                        <button onClick={() => this.deleteTrip(this.state.trip.id)}>Delete</button>
+                        {this.state.popupActive && <EditTripComponent onSave={this.saveTrip} trip={this.state.editTrip} />}
+                    </div>
                     <Checklist value={this.state.trip.checklist} tripId={this.state.trip.id} />
                     <Gear />
                 </div>
                 }
-            </div>
+            </MyTripWrapper>
         )
     }
 }
@@ -221,8 +236,8 @@ class CheckListItem extends Component {
                         onChange={() => this.onChecked(this.state.checklistItem)}
                     />
 
-                    {this.state.checklistItem.camping_item}
-                    {this.state.checklistItem.quantity}
+                    Item: {this.state.checklistItem.camping_item}
+                    Quantity: {this.state.checklistItem.quantity}
                     <button onClick={() => this.editChecklist(this.state.checklistItem)}>Edit</button>
                     <button onClick={() => this.props.onRemove(this.state.checklistItem.id)}>Delete</button>
 
@@ -235,7 +250,6 @@ class CheckListItem extends Component {
                             <input type="number" name="quantity" value={this.state.checklistItem.quantity} onChange={this.onChecklistItemChange} />
                             <button>Save</button>
                         </form>
-
                     }
                 </li>
             </div >

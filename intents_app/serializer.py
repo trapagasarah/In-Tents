@@ -1,5 +1,6 @@
 from .models import Campsite, Trip, Gear, ChecklistItem                                                          
 from rest_framework import serializers
+from django.core.serializers.json import DjangoJSONEncoder
 
                                                         
 class CampsiteSerializer(serializers.ModelSerializer):
@@ -24,6 +25,6 @@ class GearSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Gear
-        fields = ('id', 'name', 'description', 'quantity')
+        fields = ('id', 'name', 'description', 'quantity')    
 
 
