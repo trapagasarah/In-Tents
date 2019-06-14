@@ -17,6 +17,7 @@ class ChecklistItemSerializer(serializers.ModelSerializer):
                                                          
 class TripSerializer(serializers.ModelSerializer):
     checklist = ChecklistItemSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Trip
         fields = ('id', 'name', 'start_date', 'end_date', 'campsite', 'campers', 'checklist')
