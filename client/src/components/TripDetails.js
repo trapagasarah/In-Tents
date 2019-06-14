@@ -69,9 +69,9 @@ class TripDetails extends Component {
                 {this.state.redirect && <Redirect to='/trips' />}
                 <h1>My Trip</h1>
                 {this.state.trip.id && <div>
-                    <div class="my-trip-details">
+                    <div className="my-trip-details">
                         <h3>Name: {this.state.trip.name}</h3>
-                        <h3>Location: {this.state.campsite.name}</h3>
+                        <h3>Location: <Link to={`/campsites/${this.state.trip.campsite}`}>{this.state.campsite.name}</Link></h3>
                         <h3>Number of Campers: {this.state.trip.campers}</h3>
                         <h3>Start-Date: {this.state.trip.start_date}</h3>
                         <h3>End-Date: {this.state.trip.end_date}</h3>

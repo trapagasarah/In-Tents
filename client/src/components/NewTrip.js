@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import campsiteClient from '../clients/campsiteClient';
 import tripClient from '../clients/tripClient';
+import  queryString  from 'query-string'
 
 class NewTrip extends Component {
     state = {
@@ -19,14 +20,18 @@ class NewTrip extends Component {
     }
 
     async componentDidMount() {
+        let query = queryString.parse(this.props.location.search)
         let campsites = await campsiteClient.getAll()
+        
+        let initialCampsite = query.campsite || campsites[0].id
+        console.log(initialCampsite)
         this.setState(prevState => ({
             campsites: campsites,
             trip: { 
                 ...prevState.trip,
-                campsite: campsites[0].id 
+                campsite: initialCampsite 
             },
-            selectedCampsite: campsites[0].id
+            selectedCampsite: initialCampsite
         }))
     }
 

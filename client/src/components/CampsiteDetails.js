@@ -22,6 +22,7 @@ class CampsiteDetails extends Component{
                     <h3>Name: {this.state.campsite.name}</h3>
                     <h3>Location: {this.state.campsite.location} </h3>
                     <h3>Description: {this.state.campsite.description} </h3>
+                    <button onClick={() => this.props.history.goBack()}>Back</button><Link to={`/newtrip?campsite=${this.state.campsite.id}`}>Plan a Trip</Link>
                 </div>}
             </div>
         )
