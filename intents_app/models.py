@@ -6,7 +6,7 @@ class Campsite(models.Model):
     description = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.name} - {self.location} - {self.campsite_type}"
+        return f"{self.name} - {self.location} "
 
 
 class Trip(models.Model):
