@@ -28,7 +28,6 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
 
 class PlaceView(View):
     def get(self, request, *args, **kwargs):
-        print(f"Key: {apiKey}")
         lat = request.GET['lat']
         lng = request.GET['lng']
         response = requests.get(f"https://maps.googleapis.com/maps/api/place/textsearch/json?key={apiKey}&type=campground&location={lat},{lng}&radiuis=50000")

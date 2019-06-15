@@ -7,12 +7,10 @@ import checklistItemClient from '../clients/checklistItemClient';
 import campsiteClient from '../clients/campsiteClient';
 
 const MyTripWrapper = styled.div`
-    display: grid;
+    
     
     .my-trip-details{
-        grid-template-rows:    repeat(4, 100px);
-        grid-template-columns: repeat(3, 1fr);
-        background-color: purple;
+        
     }
 
 `
