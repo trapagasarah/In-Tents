@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('/images/tent.jpeg');
+  background-image: url('/images/tent-transparent.jpeg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -16,5 +16,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-    color: rgb(142, 149, 73);
+    color: rgb(219, 126, 69);
+    color: rgb(98, 104, 52);
 }

@@ -12,6 +12,7 @@ class CampsiteDetails extends Component{
         let campsiteId = this.props.match.params.id
         let campsite = await campsiteClient.get(campsiteId)
         this.setState({campsite: campsite})
+        window.scrollTo(0,0);
         }
 
     render(){

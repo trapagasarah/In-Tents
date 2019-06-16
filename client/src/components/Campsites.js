@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import campsiteClient from '../clients/campsiteClient';
 import GoogleMapReact from 'google-map-react';
@@ -11,12 +11,12 @@ const CampsiteListWrapper = styled.div`
     align-items: center;
     justify-content: center;
     font-family: 'Anonymous Pro', monospace;
-    background-color: rgba(179, 226, 251, .6);
+    /* background-color: rgba(179, 226, 251, .6); */
 
     
 
         h1{
-            margin: 1em;
+            /* margin-top: 1.5em; */
             font-size: 3em;
             color: rgb(148, 72, 26);
             font-weight: 700;
@@ -29,7 +29,7 @@ const CampsiteListWrapper = styled.div`
             }
         li{
             display: flex;
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: 700;
             
         }
@@ -38,19 +38,22 @@ const CampsiteListWrapper = styled.div`
             font-size: 1.5em;
             font-weight: 700;
             margin-top: 4em;
-            margin-bottom: 1em;
+            /* margin-bottom: 1em; */
             margin-left: 1em;
-            color: rgb(148, 72, 26);
+            color: rgb(219, 126, 69);
             font-weight: 700;
         }
         
         .campsite-names{
             text-decoration: none;
-            color: rgb(56, 59, 28);
+            color: rgb(98, 104, 52);
+            font-weight: 700;
+            font-size: 1.5em;
+            text-align: left;
         }
 
         .campsite-names:hover{
-            color: rgb(118, 124, 61);
+            color: rgb(219, 126, 69);
 
         }
 
@@ -72,7 +75,7 @@ const CampsiteListWrapper = styled.div`
     }
 
     form{
-        margin-bottom: 3em;
+        margin-bottom: 1em;
     }
 
     .add-campsite{
@@ -98,6 +101,8 @@ const CampsiteListWrapper = styled.div`
         justify-content: space-evenly;
         margin: 0;
         margin-bottom: 3em;
+        background-color:  rgba(255, 255, 255, .7);
+        border-radius: .6em;
                  
     }
 
@@ -111,9 +116,9 @@ const CampsiteListWrapper = styled.div`
         font-size: 1.1em;
         line-height: 1em;
         font-weight: 700;
-        margin-left: 3em;
+        margin-left: 1em;
         background: none;
-        color: rgb(56, 59, 28);
+        color: rgb(118, 124, 61);
         border: none;
         padding: 0!important;
         /* font: inherit; */
@@ -125,12 +130,19 @@ const CampsiteListWrapper = styled.div`
     .campsite-buttons:hover{
         border: none;
         background: none;
-        color: rgb(148, 72, 26);
+        color: rgb(219, 126, 69);
     }
 
     .campsites-container {
         display: grid;
         grid-template-columns: 1fr auto auto;
+    }
+
+    .my-campsites{
+        background-color: rgba(255, 255, 255, .5);
+        padding:  1em;
+        /* margin-top: 1em; */
+        border-radius: .6em;
     }
 
     
@@ -145,7 +157,8 @@ class Campsites extends Component {
     state = {
         campsites: [],
         popupActive: false,
-        editCampsite: {}
+        editCampsite: {},
+        redirectToCampsite: null
     }
 
     async componentDidMount() {
@@ -159,13 +172,14 @@ class Campsites extends Component {
 
     saveCampsite = async (event, campsite) => {
         event.preventDefault();
+        let redirectCampsite
         if (campsite.id === '') {
-            await campsiteClient.create(campsite)
+            redirectCampsite = await campsiteClient.create(campsite)
         } else {
-            await campsiteClient.update(campsite)
+            redirectCampsite = await campsiteClient.update(campsite)
         }
         let campsites = await campsiteClient.getAll()
-        this.setState({ popupActive: false, campsites: campsites })
+        this.setState({ popupActive: false, campsites: campsites, redirectToCampsite: redirectCampsite.id })
     }
 
     deleteCampsite = async (campsiteId) => {
@@ -180,17 +194,21 @@ class Campsites extends Component {
     render() {
         return (
             <CampsiteListWrapper>
-                <h1>My Campsites</h1>
-                <div className='campsites-container'>
-                    {this.state.campsites.map(singleCampsite => (
-                        <React.Fragment key={singleCampsite.id}>
-                            <Link class="campsite-names" to={`/campsites/${singleCampsite.id}`}>{singleCampsite.name}</Link>
-                            <button class="btn btn-primary" onClick={() => this.editCampsite(singleCampsite)}>Edit</button>
-                            <button class="btn btn-primary" onClick={() => this.deleteCampsite(singleCampsite.id)}>Delete</button>
-                        </React.Fragment>
-                    ))}
+                {this.state.redirectToCampsite && <Redirect to={`/campsites/${this.state.redirectToCampsite}`} />}
+                <div class="my-campsites">
+                    <h1>My Campsites</h1>
+                    <div className='campsites-container'>
+                        {this.state.campsites.map(singleCampsite => (
+                            <React.Fragment key={singleCampsite.id}>
+                                <Link class="campsite-names" to={`/campsites/${singleCampsite.id}`}>{singleCampsite.name}</Link>
+                                <a href="#edit-campsite-form"><button class="btn btn-primary" onClick={() => this.editCampsite(singleCampsite)}>Edit</button></a>
+                                <button class="btn btn-primary" onClick={() => this.deleteCampsite(singleCampsite.id)}>Delete</button>
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                    <a href="#edit-campsite-form"><button className="btn btn-primary add-campsite" href="#map-viewer" onClick={() => this.editCampsite({ id: '', name: '', description: '', location: '', campsite_type: '' })}>Add a Campsite</button></a>
                 </div>
-                <button className="btn btn-primary add-campsite" onClick={() => this.editCampsite({ id: '', name: '', description: '', location: '', campsite_type: '' })}>Add a Campsite</button>
                 {this.state.popupActive && <EditCampsiteComponent onSave={this.saveCampsite} campsite={this.state.editCampsite} />}
             </CampsiteListWrapper>
         )
@@ -228,7 +246,7 @@ class EditCampsiteComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div id="edit-campsite-form" >
                 <form onSubmit={(event) => this.props.onSave(event, this.state.campsite)}>
                     <input type="hidden" name="id" value={this.state.campsite.id} onChange={this.onCampsiteChange} />
                     <label>Campsite:</label>
@@ -267,25 +285,25 @@ class MapViewer extends Component {
 
     render() {
         return (
-        <div class="find-a-campsite" style={{ height: '45em', width: '70em' }}>
-            
-            <GoogleMapReact
-                onClick={this.onMapClick}
-                bootstrapURLKeys={{ key: process.env.REACT_APP_IN_TENTS_GOOGLE_TOKEN }}
-                defaultCenter={initialLocation}
-                defaultZoom={4}>
-            </GoogleMapReact>
-           
-            <div>
-                {this.state.places.map(place => (
-                    <div class="nearby-campsites" key={place.place_id}>
-                        <button class="campsite-buttons"key={place.id}  onClick={() => this.props.onSelect(place)}>{place.name}</button>
-                    </div>))
-                }
-            </div>
- 
-            
-        </div>)
+            <div class="find-a-campsite" style={{ height: '45em', width: '70em' }}>
+
+                <GoogleMapReact
+                    onClick={this.onMapClick}
+                    bootstrapURLKeys={{ key: process.env.REACT_APP_IN_TENTS_GOOGLE_TOKEN }}
+                    defaultCenter={initialLocation}
+                    defaultZoom={4}>
+                </GoogleMapReact>
+
+                <div>
+                    {this.state.places.map(place => (
+                        <div class="nearby-campsites" key={place.place_id}>
+                            <a href="#edit-campsite-form"><button class="campsite-buttons" key={place.id} onClick={() => this.props.onSelect(place)}>{place.name}</button></a>
+                        </div>))
+                    }
+                </div>
+
+
+            </div>)
     }
 }
 

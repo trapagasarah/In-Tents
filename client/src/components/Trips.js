@@ -8,7 +8,6 @@ const MyTripsWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     font-family: 'Anonymous Pro', monospace;
-    background-color: rgba(179, 226, 251, .6);
     height: 35em;
     
     h1{
