@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 
 const NavbarWrapper = styled.div`
   font-family: 'Anonymous Pro', monospace;
-    margin: 2em 0;
-    font-size: 1em;
-    display: grid;
+  margin: .5em 0;
+  font-size: 1em;
 
       ul {
           display: flex;
@@ -22,12 +21,12 @@ const NavbarWrapper = styled.div`
           display: flex;
           justify-content: space-evenly;
           width: 12em;
-          color: rgb(187, 200, 147); 
+          color: rgb(179, 226, 251)	; 
           font-size: 1.5em; 
           font-weight: 700;
     }
     a:hover {
-      color: white;
+      color: rgb(144, 178, 93);
     }
 `
 

@@ -5,9 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('/images/tent.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 80em;
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+    color: rgb(142, 149, 73);
 }
