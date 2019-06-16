@@ -25,10 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', auth_views.obtain_auth_token),
     path('api/v1/', include('intents_app.urls')),
-    path('', views.FrontendAppView.as_view()),
+    # path('', views.FrontendAppView.as_view()),
 
-    # re_path(r'^$', views.FrontendAppView.as_view()),
+    re_path(r'^$', views.FrontendAppView.as_view()),
     # match all other pages
-    # re_path(r'^(?:.*)/?$', views.FrontendAppView.as_view()),
+    re_path(r'^(?:.*)/?$', views.FrontendAppView.as_view()),
  
 ] 
