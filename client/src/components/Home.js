@@ -16,6 +16,7 @@ const HomeWrapper = styled.div`
         border-radius: .2em; 
         font-size: 3em;
         font-weight: 700;
+        position: fixed;
         
     }
 `
