@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import styled from 'styled-components'
 import './App.css';
-import Gear from './components/Gear';
-import Campsites from './components/Campsites';
+import Gear from './components/gear/Gear';
+import Campsites from './components/campsite/Campsites';
 import Trips from './components/trip/Trips';
 import TripDetails from "./components/trip/TripDetails";
 import TipsAndTricks from "./components/TipsAndTricks";
-import CampsiteDetails from "./components/CampsiteDetails";
+import CampsiteDetails from "./components/campsite/CampsiteDetails";
 import NewTrip from "./components/trip/NewTrip";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
