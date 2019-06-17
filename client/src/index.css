@@ -5,12 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('/static/images/tenttransparent.jpeg');
+  background-image: url('/static/images/tent.jpeg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  height: 80em;
-
 }
 
 code {

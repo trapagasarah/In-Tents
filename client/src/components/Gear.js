@@ -2,6 +2,27 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import gearClient from '../clients/gearClient';
 
+const GearWrapper = styled.div`
+    .gear-grid {
+        display: grid;
+        grid-template-columns: 1fr .8fr .3fr .4fr;
+        justify-items: start;
+        align-items: start; 
+        grid-gap: .75em;
+    }
+
+    .edit-gear-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .edit-gear-grid button {
+        justify-self: center;
+        grid-column-start: 2;
+    }
+`
+
+
 class Gear extends Component {
     state = {
         gear: [],
@@ -21,39 +42,39 @@ class Gear extends Component {
 
     saveGearItem = async (event, gearItem) => {
         event.preventDefault();
-        if(gearItem.id === ''){
+        if (gearItem.id === '') {
             await gearClient.create(gearItem)
         } else {
             await gearClient.update(gearItem)
         }
-        let gear =  await gearClient.getAll()
+        let gear = await gearClient.getAll()
         this.setState({ popupActive: false, gear: gear })
     }
 
-    deleteGearItem =  async (gearId) => {
+    deleteGearItem = async (gearId) => {
         await gearClient.delete(gearId)
-        let gear =  await gearClient.getAll()
-        this.setState({gear: gear })
-        
+        let gear = await gearClient.getAll()
+        this.setState({ gear: gear })
+
     }
 
     render() {
         return (
-            <div>
+            <GearWrapper className="gear">
                 <h1>Gear</h1>
-                <ul>
+                <div className='gear-grid'>
                     {this.state.gear.map(singleGear => (
-                        <li key={singleGear.id}>
-                            {singleGear.name}: {singleGear.description} 
-                            Quantity: {singleGear.quantity}
+                        <React.Fragment key={singleGear.id}>
+                            <label>{singleGear.name}: {singleGear.description}</label>
+                            <label>Quantity: {singleGear.quantity}</label>
                             <button onClick={() => this.editGearItem(singleGear)}>Edit</button>
                             <button onClick={() => this.deleteGearItem(singleGear.id)}>Delete</button>
-                        </li>
+                        </React.Fragment>
                     ))}
-                </ul>
-                <button onClick={() => this.editGearItem({id:'', name: '', description: '', quantity: 1})}>Add Gear</button>
+                </div>
+                <button onClick={() => this.editGearItem({ id: '', name: '', description: '', quantity: 1 })}>Add Gear</button>
                 {this.state.popupActive && <EditGearComponent onSave={this.saveGearItem} gearItem={this.state.editGearItem} />}
-            </div>
+            </GearWrapper>
         )
     }
 }
@@ -78,8 +99,8 @@ class EditGearComponent extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={(event) => this.props.onSave(event, this.state.gearItem)}>
-                    <input type="hidden" name="id" value={this.state.gearItem.id} onChange={this.onGearItemChange}/>
+                <form className="edit-gear-grid" onSubmit={(event) => this.props.onSave(event, this.state.gearItem)}>
+                    <input type="hidden" name="id" value={this.state.gearItem.id} onChange={this.onGearItemChange} />
                     <label>Name</label>
                     <input type="text" name="name" value={this.state.gearItem.name} onChange={this.onGearItemChange} />
                     <label>Description</label>

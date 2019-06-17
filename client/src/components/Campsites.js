@@ -11,12 +11,11 @@ const CampsiteListWrapper = styled.div`
     align-items: center;
     justify-content: center;
     font-family: 'Anonymous Pro', monospace;
-    /* background-color: rgba(179, 226, 251, .6); */
+    
 
     
 
         h1{
-            /* margin-top: 1.5em; */
             font-size: 3em;
             color: rgb(148, 72, 26);
             font-weight: 700;
@@ -57,7 +56,7 @@ const CampsiteListWrapper = styled.div`
 
         }
 
-        button {
+    button {
         background-color: rgb(148, 72, 26);
         border: 1px solid white;
         width: 4em;
@@ -107,7 +106,7 @@ const CampsiteListWrapper = styled.div`
     }
 
     .nearby-campistes{
-        width: 10em;
+        /* width: 10em; */
         margin: 0;
     }
 
@@ -116,13 +115,14 @@ const CampsiteListWrapper = styled.div`
         font-size: 1.1em;
         line-height: 1em;
         font-weight: 700;
-        margin-left: 1em;
+        margin-left: 3em;
         background: none;
         color: rgb(118, 124, 61);
         border: none;
         padding: 0!important;
-        /* font: inherit; */
         cursor: pointer;
+        text-align: left;
+
 
         
     }
@@ -139,9 +139,9 @@ const CampsiteListWrapper = styled.div`
     }
 
     .my-campsites{
-        background-color: rgba(255, 255, 255, .5);
+        background-color: rgba(255, 255, 255, .7);
         padding:  1em;
-        /* margin-top: 1em; */
+        margin-top: 1em;
         border-radius: .6em;
     }
 
