@@ -1,29 +1,62 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const TipsAndTricksWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Anonymous Pro', monospace;
+    
+
+        .tips-and-tricks-container{
+            /* display: flex;
+            flex-direction: column; */
+            background-color: rgba(255, 255, 255, .7);
+            padding:  1em;
+            margin-top: 1em;
+            border-radius: .6em;
+            width: 50em;
+        }
+    
+
+        h1{
+            font-size: 3em;
+            color: rgb(148, 72, 26);
+            font-weight: 700;
+        }
+        ol{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: left;
+            }
+        li{
+            font-size: 1em;
+            font-weight: 700;
+            color: rgb(98, 104, 52);
+            font-weight: 700;
+            font-size: 1.5em;
+            text-align: left;
+        }
+
+        
+    `
 
 class TipsAndTricks extends Component{
     render(){
         return(
-            <div>
+            <TipsAndTricksWrapper>
+                <div className="tips-and-tricks-container">
                 <h1>Tips and Tricks</h1>
                     <ol>
-                        <li>Warm your sleeping bag with a Nalgene: <p>Some people were born with cold feet. To cope while camping, fill your Nalgene up with hot water and throw it in the bottom of your sleeping bag before bedtime.</p></li>
-                        <li>Line your pack with a heavy-duty garbage bag: <p>If snuggling up to a bottle of hot water goes against your better judgment, try some dry clothes instead. They will soak up any moisture in the bottom of your sleeping bag and keep your favorite feet warm.</p></li>
-                        <li>Keep one pair of your socks safe: <p>Learn to love sacred socks. Sacred socks are clean, dry socks that live in your sleeping bag for sleeping purposes only. It’s a beautiful thing.</p></li>
-                        <li>Line your pack with a heavy-duty garbage bag: <p>Use garbage can science to help keep your stuff dry. Line your backpack with a plastic garbage bag and fill ‘er up.</p></li>
-                        <li>Bring your spices in sealed straws.<p>Flame-sealed sections of drinking straws make handy spice holders and terrible water balloons.</p></li>
-                        <li>Store your scrambled eggs in a bottle<p>No-mess scrambled eggs coming at you! Avoid the mess of cracked eggs around the campfire by prepping the eggs at home and storing the scrambled egg mixture in a lidded plastic bottle.</p></li>
-                        <li>Keep your toilet paper dry inside a coffee container.<p>Keep your TP dry and safe by repurposing an empty plastic coffee container as a toilet paper holder.  Place the TP inside & cut a slit in the side large enough for the paper to pull through.</p></li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-                        <li>Warm your sleeping bag with a Nalgene.</li>
-
+                        <li>Warm your sleeping bag with a Nalgene filled with warm water</li>
+                        <li>Line your pack with a heavy-duty garbage bag to keep things dry</li>
+                        <li>Keep one pair of your socks safe, you will be thankful later for clean, dry socks!!</li>
+                        <li>Bring your spices in sealed straws or tick tac containers</li>
+                        <li>Store your scrambled eggs in a bottle to save yourself the mess of cracking and potentially breaking your eggs</li>
                     </ol>
-            </div>
+                    </div>
+            </TipsAndTricksWrapper>
         )
     }
 }

@@ -66,7 +66,7 @@ const MyTripsWrapper = styled.div`
         .my-trips{
             background-color: rgba(255, 255, 255, .7);
             padding:  1em;
-            margin-top: 8em;
+            margin-top: 4em;
             border-radius: .6em;
         }
 

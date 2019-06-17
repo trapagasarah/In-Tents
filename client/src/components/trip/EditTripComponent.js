@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 
-const EidtTripWrapper = styled.div`
+const EditTripWrapper = styled.div`
     form {
         display: grid;
         grid-gap: .5em;
         justify-self: center;
-        grid-template-columns: 2fr 3fr;
+        grid-template-columns: 3fr 3fr;
     }
 
     form label {
@@ -38,7 +38,7 @@ class EditTripComponent extends Component {
 
     render() {
         return (
-            <EidtTripWrapper>
+            <EditTripWrapper>
                 <form onSubmit={(event) => this.props.onSave(event, this.state.trip)}>
                     {/* <input type="hidden" name="id" value={this.state.trip.id} onChange={this.onTripChange} /> */}
 
@@ -55,7 +55,7 @@ class EditTripComponent extends Component {
                     <input id="trip-end-date-input" type="date" name="end_date" value={this.state.trip.end_date} onChange={this.onTripChange} />
                     <button>Save</button>
                 </form>
-            </EidtTripWrapper>
+            </EditTripWrapper>
         )
     }
 }

@@ -141,7 +141,7 @@ const CampsiteListWrapper = styled.div`
     .my-campsites{
         background-color: rgba(255, 255, 255, .7);
         padding:  1em;
-        margin-top: 1em;
+        margin-top: 4em;
         border-radius: .6em;
     }
 

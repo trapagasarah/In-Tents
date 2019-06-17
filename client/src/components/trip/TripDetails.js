@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import tripClient from '../../clients/tripClient';
-import Gear from '../gear/Gear';
+import StyledGear from '../gear/StyledGear';
 import EditTripComponent from './EditTripComponent'
 import checklistItemClient from '../../clients/checklistItemClient';
 import campsiteClient from '../../clients/campsiteClient';
@@ -15,9 +15,9 @@ const MyTripWrapper = styled.div`
     font-family: 'Anonymous Pro', monospace;
     
     h1{
-            font-size: 3em;
-            color: rgb(148, 72, 26);
-            font-weight: 700;
+        font-size: 3em;
+        color: rgb(148, 72, 26);
+        font-weight: 700;
     }
 
     h3{
@@ -26,11 +26,35 @@ const MyTripWrapper = styled.div`
         font-size: 1.5em;
     }
 
+    label{
+        color: rgb(98, 104, 52);
+        font-weight: 700;
+        font-size: 1em;
+        text-align: left;
+    }
+
+    button {
+        background-color: rgb(148, 72, 26);
+        border: 1px solid white;
+        width: 4em;
+        height: 1.5em;
+        margin: .5em;
+        padding: 0;
+    }
+
+    button:hover {
+        color: white;
+        background-color:  rgb(118, 124, 61); 
+        border: 1px solid rgb(148, 72, 26);
+    }
+
+
     .my-trip-details{
         background-color: rgba(255, 255, 255, .7); 
         padding:  2em;
         border-radius: .6em;
         margin-top: 6em;
+        width: 75em;
     }
 
     .trip-grid{
@@ -52,13 +76,14 @@ const MyTripWrapper = styled.div`
 
     .checklist-grid {
         display:grid;
-        grid-template-columns: .1fr .25fr 1fr .4fr .1fr .4fr .4fr;
+        grid-template-columns: .1fr .1fr .4fr .1fr .05fr .15fr .15fr;
         justify-items: start;
     }
 
     .checklist-grid button {
         justify-self: center;
         align-self: start;
+        
     }
 
     .checklist-grid input[type='checkbox'] {
@@ -67,84 +92,38 @@ const MyTripWrapper = styled.div`
 
     .checklist-grid input[type='text'] {
         width: 8em;
+        
     }
 
     .checklist-grid input[type='number'] {
-        width: 2em;
+        width: 4em;
+        
     }
 
     #checklist-add-button{
         grid-column-start: 1;
         grid-column-end: 8;
+        margin: 1em 0;
+        width: 12em;
     }
 
 
     .gear {
         grid-column-start: 3;
         grid-column-end:  span 2;
+        /* background-color: rgba(255, 255, 255, .4);
+        width: 35em; */
+    }
+
+    .campsite-location{
+        color: rgb(148, 72, 26);
+        text-decoration: none;
+    }
+
+    .campsite-location:hover{
+        color: rgb(92, 162, 200);
     }
 `
-class Checklist extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checklist: props.value,
-            popupActive: false,
-            newChecklistItem: { camping_item: '', quantity: 1, is_checked: false, trip: props.tripId }
-        }
-    }
-
-    addChecklistItem = async (event) => {
-        event.preventDefault()
-        console.log(this.state.newChecklistItem)
-        let newItem = await checklistItemClient.create(this.state.newChecklistItem)
-        this.setState(prevState => ({ checklist: [...prevState.checklist, newItem], popupActive: false }))
-    }
-
-    removeChecklistItem = async (checklistId) => {
-        await checklistItemClient.delete(checklistId)
-        let checklist = await checklistItemClient.getAll()
-        this.setState({ checklist: checklist })
-    }
-
-    onNewChecklistItemChange = (event) => {
-        let name = event.target.name
-        let value = event.target.value
-        this.setState(prevState => ({
-            newChecklistItem: {
-                ...prevState.newChecklistItem,
-                [name]: value
-            }
-        }))
-    }
-
-    render() {
-        return (
-            <div className="checklist">
-                <h1>Checklist</h1>
-                <div className="checklist-grid">
-                    {this.state.checklist.map(checklistItem => (
-                        <CheckListItem key={checklistItem.id} item={checklistItem} onRemove={this.removeChecklistItem} />
-                    ))}
-
-
-                    <button id="checklist-add-button" onClick={() => this.setState({ popupActive: true })}>Add Checklist Item</button>
-                
-                    {this.state.popupActive &&
-                        <React.Fragment>
-                            <div />
-                            <label>Item </label><input type="text" name="camping_item" value={this.state.newChecklistItem.camping_item} onChange={this.onNewChecklistItemChange} />
-                            <label>Quantity</label><input type="number" name="quantity" value={this.state.newChecklistItem.quantity} onChange={this.onNewChecklistItemChange} />
-                            <button onClick={this.addChecklistItem}>Save</button>
-                            <div />
-                        </React.Fragment>
-                    }
-                </div>  
-            </div>
-        )
-    }
-}
-
 class TripDetails extends Component {
     state = {
         trip: {},
@@ -155,12 +134,7 @@ class TripDetails extends Component {
     }
 
     async componentDidMount() {
-        let tripId = this.props.match.params.id
-        let trip = await tripClient.get(tripId)
-        let campsite = await campsiteClient.get(trip.campsite)
-
-        this.setState({ trip: trip, campsite: campsite })
-
+        await this.refreshPage()
     }
 
     editTrip = (trip) => {
@@ -189,25 +163,41 @@ class TripDetails extends Component {
         this.setState({ redirect: true })
     }
 
+    refreshPage = async () => {
+        let tripId = this.props.match.params.id
+        let trip = await tripClient.get(tripId)
+        let campsite = await campsiteClient.get(trip.campsite)
+        
+        console.log(trip)
+        this.setState({ trip: trip, campsite: campsite, checklist: trip.checklist })
+    }
+
     render() {
         return (
             <MyTripWrapper>
                 <div className="my-trip-details">
                     {this.state.redirect && <Redirect to='/trips' />}
                     <h1>My Trip</h1>
+                    
+
                     {this.state.trip.id && <div className="trip-grid">
                         <div className="trip-info">
                             <h3>Name: {this.state.trip.name}</h3>
-                            <h3>Location: <Link to={`/campsites/${this.state.trip.campsite}`}>{this.state.campsite.name}</Link></h3>
+                            <h3>Location: <Link className="campsite-location" to={`/campsites/${this.state.trip.campsite}`}>{this.state.campsite.name}</Link></h3>
                             <h3>Number of Campers: {this.state.trip.campers}</h3>
                             <h3>Start-Date: {this.state.trip.start_date}</h3>
                             <h3>End-Date: {this.state.trip.end_date}</h3>
-                            <button onClick={() => this.editTrip(this.state.trip)}>Edit</button>
-                            <button onClick={() => this.deleteTrip(this.state.trip.id)}>Delete</button>
+                            <button className="btn btn-primary" onClick={() => this.editTrip(this.state.trip)}>Edit</button>
+                            <button className="btn btn-primary" onClick={() => this.deleteTrip(this.state.trip.id)}>Delete</button>
                             {this.state.popupActive && <EditTripComponent onSave={this.saveTrip} trip={this.state.editTrip} />}
                         </div>
-                        <Checklist value={this.state.trip.checklist} tripId={this.state.trip.id} />
-                        <Gear />
+                        <Checklist value={this.state.checklist} 
+                            onChecklistItemRemove={this.refreshPage} 
+                            onChecklistItemAdded={this.refreshPage}
+                            tripId={this.state.trip.id} />
+                        <div className="gear">
+                            <StyledGear />
+                        </div>
                     </div>
                     }
                 </div>
@@ -217,6 +207,67 @@ class TripDetails extends Component {
 }
 
 
+
+class Checklist extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            checklist: props.value,
+            popupActive: false,
+            newChecklistItem: { camping_item: '', quantity: 1, is_checked: false, trip: props.tripId }
+        }
+    }
+
+    addChecklistItem = async (event) => {
+        event.preventDefault()
+        console.log(this.state.newChecklistItem)
+        await checklistItemClient.create(this.state.newChecklistItem)
+        this.setState(({popupActive: false}))
+        this.props.onChecklistItemAdded()
+    }
+
+    removeChecklistItem = async (checklistId) => {
+        await checklistItemClient.delete(checklistId)
+        this.props.onChecklistItemRemove()
+    }
+
+    onNewChecklistItemChange = (event) => {
+        let name = event.target.name
+        let value = event.target.value
+        this.setState(prevState => ({
+            newChecklistItem: {
+                ...prevState.newChecklistItem,
+                [name]: value
+            }
+        }))
+    }
+
+    render() {
+        return (
+            <div className="checklist">
+                <h1>Checklist</h1>
+                <div className="checklist-grid">
+                    {this.props.value.map(checklistItem => (
+                        <CheckListItem key={checklistItem.id} item={checklistItem} onRemove={this.removeChecklistItem} />
+                    ))}
+
+
+                    <button id="checklist-add-button" className="btn btn-primary" onClick={() => this.setState({ popupActive: true })}>Add Checklist Item</button>
+
+                    {this.state.popupActive &&
+                        <React.Fragment>
+                            <div />
+                            <label>Item </label><input type="text" name="camping_item" value={this.state.newChecklistItem.camping_item} onChange={this.onNewChecklistItemChange} />
+                            <label>Quantity</label><input type="number" name="quantity" value={this.state.newChecklistItem.quantity} onChange={this.onNewChecklistItemChange} />
+                            <button className="btn btn-primary" onClick={this.addChecklistItem}>Save</button>
+                            <div />
+                        </React.Fragment>
+                    }
+                </div>
+            </div>
+        )
+    }
+}
 
 class CheckListItem extends Component {
     constructor(props) {
@@ -271,7 +322,7 @@ class CheckListItem extends Component {
                         <input type="text" name="camping_item" value={this.state.checklistItem.camping_item} onChange={this.onChecklistItemChange} />
                         <label>Quantity: </label>
                         <input type="number" name="quantity" value={this.state.checklistItem.quantity} onChange={this.onChecklistItemChange} />
-                        <button onClick={this.saveChecklist}>Save</button>
+                        <button className="btn btn-primary" onClick={this.saveChecklist}>Save</button>
                         <div />
                     </React.Fragment>
                     : <React.Fragment>
@@ -283,8 +334,8 @@ class CheckListItem extends Component {
                         />
                         <label>Item: </label>{this.state.checklistItem.camping_item}
                         <label>Quantity: </label>{this.state.checklistItem.quantity}
-                        <button onClick={() => this.editChecklist(this.state.checklistItem)}>Edit</button>
-                        <button onClick={() => this.props.onRemove(this.state.checklistItem.id)}>Delete</button>
+                        <button className="btn btn-primary" onClick={() => this.editChecklist(this.state.checklistItem)}>Edit</button>
+                        <button className="btn btn-primary" onClick={() => this.props.onRemove(this.state.checklistItem.id)}>Delete</button>
                     </React.Fragment>
 
                 }

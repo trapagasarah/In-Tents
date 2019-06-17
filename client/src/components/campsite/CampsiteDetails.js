@@ -33,10 +33,15 @@ const CampsiteDetailsWrapper = styled.div`
         margin-top: 16em;
     }
     
-    button{
-        margin: .5em;
+  
+
+    button {
         background-color: rgb(148, 72, 26);
         border: 1px solid white;
+        width: 10em;
+        height: 1.5em;
+        margin: .5em;
+        padding: 0;
     }
 
     button:hover {
