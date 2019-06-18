@@ -71,7 +71,7 @@ class CampsiteDetails extends Component {
                     {this.state.campsite.id && <div>
                         <h3>Name: {this.state.campsite.name}</h3>
                         <h3>Location: {this.state.campsite.location} </h3>
-                        <h3>Description: {this.state.campsite.description} </h3>
+                        <h3>Notes: {this.state.campsite.description} </h3>
                         <button className="btn btn-primary" onClick={() => this.props.history.goBack()}>Back</button>
                         <Link to={`/newtrip?campsite=${this.state.campsite.id}`}><button className="btn btn-primary">Plan a Trip</button></Link>
                     </div>}

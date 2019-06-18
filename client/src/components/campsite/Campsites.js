@@ -196,7 +196,7 @@ class Campsites extends Component {
             <CampsiteListWrapper>
                 {this.state.redirectToCampsite && <Redirect to={`/campsites/${this.state.redirectToCampsite}`} />}
                 <div class="my-campsites">
-                    <h1>My Campsites</h1>
+                    <h1>Bookmarked Campsites</h1>
                     <div className='campsites-container'>
                         {this.state.campsites.map(singleCampsite => (
                             <React.Fragment key={singleCampsite.id}>
@@ -253,7 +253,7 @@ class EditCampsiteComponent extends Component {
                     <input type="text" name="name" value={this.state.campsite.name} onChange={this.onCampsiteChange} />
                     <label>Location:</label>
                     <input type="text" name="location" value={this.state.campsite.location} onChange={this.onCampsiteChange} />
-                    <label>Description:</label>
+                    <label>Notes:</label>
                     <input type="text" name="description" value={this.state.campsite.description} onChange={this.onCampsiteChange} />
                     <button className="btn btn-primary new-campsite-form">Save</button>
                 </form>
