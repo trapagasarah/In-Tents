@@ -33,6 +33,7 @@ const StyledGear = styled.div`
 
     button {
         background-color: rgb(148, 72, 26);
+        color: white;
         border: 1px solid white;
         width: 4em;
         height: 1.5em;
